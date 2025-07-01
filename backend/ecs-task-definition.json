@@ -1,0 +1,72 @@
+{
+  "family": "ai-chat-app-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::{ACCOUNT_ID}:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::{ACCOUNT_ID}:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "ai-chat-backend",
+      "image": "{ACCOUNT_ID}.dkr.ecr.{REGION}.amazonaws.com/ai-chat-backend:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ai-chat-app-backend",
+          "awslogs-region": "{REGION}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "8000"
+        },
+        {
+          "name": "HOST",
+          "value": "0.0.0.0"
+        },
+        {
+          "name": "DEBUG",
+          "value": "false"
+        },
+        {
+          "name": "ALLOWED_ORIGINS",
+          "value": "https://balaji-senthil.github.io"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "arn:aws:ssm:{REGION}:{ACCOUNT_ID}:parameter/ai-chat-app/database-url"
+        },
+        {
+          "name": "GOOGLE_API_KEY",
+          "valueFrom": "arn:aws:ssm:{REGION}:{ACCOUNT_ID}:parameter/ai-chat-app/google-api-key"
+        },
+        {
+          "name": "SECRET_KEY",
+          "valueFrom": "arn:aws:ssm:{REGION}:{ACCOUNT_ID}:parameter/ai-chat-app/secret-key"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ]
+} 
