@@ -10,32 +10,6 @@ A modern, feature-rich AI chat application built with React and Material UI. Thi
 
 *Note: The live demo runs frontend-only. For full functionality, you'll need to deploy the backend separately.*
 
-## �� Features
-
-### Core Functionality
-- Real-time AI chat interface with message streaming
-- Thread-based conversation management
-- Multiple AI model support
-- Dark/Light theme support
-- Markdown rendering for AI responses
-- Message history and persistence
-
-### User Experience
-- Modern, responsive Material UI design
-- Intuitive thread management
-- Message controls (copy, regenerate, stop)
-- Loading indicators and error handling
-- Rate limit monitoring
-- User authentication and profile management
-
-### Technical Features
-- React-based architecture
-- Context-based state management
-- Secure API communication
-- Real-time message streaming
-- Thread persistence
-- Theme customization
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -275,3 +249,74 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Made with ❤️ by Balaji Senthilkumar
+
+# AI Chat App Frontend
+
+A modern React-based chat application with AI integration.
+
+## GitHub Pages Deployment
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Automatic Deployment
+
+The app will automatically deploy to GitHub Pages when you push to the `main` or `develop` branch. The deployment workflow is configured in `.github/workflows/deploy.yml`.
+
+### Manual Deployment
+
+To deploy manually using gh-pages:
+
+```bash
+npm run build
+npm run deploy
+```
+
+### Configuration
+
+1. **Environment Variables**: Update `.env.production` with your production backend URL:
+   ```
+   VITE_API_URL=https://your-backend-domain.com/api
+   ```
+
+2. **Repository Settings**: 
+   - Go to your GitHub repository settings
+   - Navigate to Pages section
+   - Set Source to "GitHub Actions"
+
+3. **Base URL**: The app is configured to work with the repository name `/g-chat/`. If you rename the repository, update:
+   - `base` in `vite.config.js`
+   - `basename` in `src/App.jsx`
+
+### Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+### Features
+
+- ✅ Client-side routing support for GitHub Pages
+- ✅ Automatic deployment via GitHub Actions
+- ✅ Production environment configuration
+- ✅ SPA (Single Page Application) routing
+- ✅ Responsive Material-UI design
+
+### Deployment URL
+
+Once deployed, your app will be available at:
+`https://balaji-senthil.github.io/g-chat/`
+
+### Troubleshooting
+
+1. **404 on page refresh**: The `404.html` file handles client-side routing for GitHub Pages
+2. **Build failures**: Check that all environment variables are set correctly
+3. **API connection**: Ensure your backend URL in `.env.production` is correct and accessible

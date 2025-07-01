@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Remove GitHub Pages specific base path for Vercel
-  // base: '/ai-chat-app/',
+  // Set base path for GitHub Pages deployment
+  base: '/g-chat/',
   build: {
     outDir: 'dist',
     sourcemap: false, // Disable source maps for production

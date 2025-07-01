@@ -106,7 +106,7 @@ function App() {
             <ThreadProvider>
               <ChatProvider>
                 <CssBaseline />
-                <Router>
+                <Router basename="/g-chat">
                   <Routes>
                     {/* Public routes */}
                     <Route path="/login" element={<LoginForm />} />
